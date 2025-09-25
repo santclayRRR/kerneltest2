@@ -145,3 +145,4 @@ msm-$(CONFIG_DRM_MSM_DSI_7NM_PHY) += dsi/pll/dsi_pll_7nm.o
 endif
 
 obj-$(CONFIG_DRM_MSM)	+= msm.o
+obj-$(CONFIG_FB_MSM_MDSS_KCAL_CTRL) += msm_kcal_ctrl.o

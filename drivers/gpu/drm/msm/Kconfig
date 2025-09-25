@@ -128,3 +128,8 @@ config DRM_MSM_DSI_7NM_PHY
 	help
 	  Choose this option if DSI PHY on SM8150/SM8250 is used on the
 	  platform.
+config FB_MSM_MDSS_KCAL_CTRL
+    tristate "MDSS KCAL Control"
+    default n
+    help
+      Enable KCAL (Kernel Color Control) to adjust RGB via sysfs.
