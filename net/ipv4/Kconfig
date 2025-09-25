@@ -665,60 +665,40 @@ config TCP_CONG_CDG
 	    delay gradients." In Networking 2011. Preprint: http://goo.gl/No3vdg
 
 config TCP_CONG_BBR
-	tristate "BBR TCP"
-	default n
-	help
-	  BBR (Bottleneck Bandwidth and RTT) TCP congestion control aims
-	  to maximize network utilization and minimize queues.
-	  It builds an explicit model of the bottleneck delivery rate
-	  and path round-trip propagation delay.
-	  It tolerates packet loss and delay unrelated to congestion.
-	  It can operate over LAN, WAN, cellular, wifi, or cable modem links.
-	  It can coexist with loss-based congestion control flows.
+        tristate "BBR TCP"
+        default n
+        help
+          BBR (Bottleneck Bandwidth and RTT) TCP congestion control aims
+          to maximize network utilization and minimize queues.
+          It builds an explicit model of the bottleneck delivery rate
+          and path round-trip propagation delay.
+          It tolerates packet loss and delay unrelated to congestion.
+          It can operate over LAN, WAN, cellular, wifi, or cable modem links.
+          It can coexist with loss-based congestion control flows.
 
 choice
-	prompt "Default TCP congestion control"
-	default DEFAULT_BBR
-	help
-	  Select the TCP congestion control that will be used by default
-	  for all connections.
+        prompt "Default TCP congestion control"
+        default DEFAULT_BBR
+        help
+          Select the TCP congestion control that will be used by default
+          for all connections.
 
-	config DEFAULT_BIC
-		bool "Bic" if TCP_CONG_BIC=y
+config DEFAULT_CUBIC
+        bool "Cubic" if TCP_CONG_CUBIC=y
 
-	config DEFAULT_CUBIC
-		bool "Cubic" if TCP_CONG_CUBIC=y
+config DEFAULT_BBR
+        bool "BBR" if TCP_CONG_BBR=y
 
-	config DEFAULT_HTCP
-		bool "Htcp" if TCP_CONG_HTCP=y
+config DEFAULT_RENO
+        bool "Reno"
 
-	config DEFAULT_HYBLA
-		bool "Hybla" if TCP_CONG_HYBLA=y
-
-	config DEFAULT_VEGAS
-		bool "Vegas" if TCP_CONG_VEGAS=y
-
-	config DEFAULT_VENO
-		bool "Veno" if TCP_CONG_VENO=y
-
-	config DEFAULT_WESTWOOD
-		bool "Westwood" if TCP_CONG_WESTWOOD=y
-
-	config DEFAULT_DCTCP
-		bool "DCTCP" if TCP_CONG_DCTCP=y
-
-	config DEFAULT_CDG
-		bool "CDG" if TCP_CONG_CDG=y
-
-	config DEFAULT_BBR
-		bool "BBR" if TCP_CONG_BBR=y
-		select TCP_CONG_BBR
-
-	config DEFAULT_RENO
-		bool "Reno"
 endchoice
 
-endif
+config DEFAULT_TCP_CONG
+        string
+        default "cubic" if DEFAULT_CUBIC
+        default "bbr" if DEFAULT_BBR
+        default "reno" if DEFAULT_RENO
 
 config TCP_CONG_CUBIC
 	tristate
